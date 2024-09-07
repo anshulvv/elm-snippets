@@ -10618,9 +10618,13 @@ var $mdgriffith$elm_ui$Element$rgb255 = F3(
 	});
 var $author$project$Styles$Colors$colors = {
 	background: A3($mdgriffith$elm_ui$Element$rgb255, 250, 243, 217),
+	blue: A3($mdgriffith$elm_ui$Element$rgb255, 0, 0, 255),
+	codeblockBackground: A3($mdgriffith$elm_ui$Element$rgb255, 59, 59, 59),
+	codeblockFontColor: A3($mdgriffith$elm_ui$Element$rgb255, 213, 213, 213),
 	red: A3($mdgriffith$elm_ui$Element$rgb255, 255, 0, 0),
 	text: A3($mdgriffith$elm_ui$Element$rgb255, 0, 0, 0),
-	title: A3($mdgriffith$elm_ui$Element$rgb255, 0, 0, 0)
+	title: A3($mdgriffith$elm_ui$Element$rgb255, 0, 0, 0),
+	white: A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255)
 };
 var $author$project$Styles$Styles$backgoundColor = $author$project$Styles$Colors$colors.background;
 var $mdgriffith$elm_ui$Internal$Model$Colored = F3(
@@ -16340,6 +16344,12 @@ var $mdgriffith$elm_ui$Element$column = F2(
 						attrs))),
 			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
 	});
+var $mdgriffith$elm_ui$Internal$Model$Class = F2(
+	function (a, b) {
+		return {$: 'Class', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Internal$Flag$fontWeight = $mdgriffith$elm_ui$Internal$Flag$flag(13);
+var $mdgriffith$elm_ui$Element$Font$bold = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontWeight, $mdgriffith$elm_ui$Internal$Style$classes.bold);
 var $author$project$Styles$Font$descFontSize = 18;
 var $mdgriffith$elm_ui$Element$Font$size = function (i) {
 	return A2(
@@ -16347,11 +16357,15 @@ var $mdgriffith$elm_ui$Element$Font$size = function (i) {
 		$mdgriffith$elm_ui$Internal$Flag$fontSize,
 		$mdgriffith$elm_ui$Internal$Model$FontSize(i));
 };
-var $author$project$Styles$Font$descAttr = _List_fromArray(
-	[
-		$mdgriffith$elm_ui$Element$Font$size($author$project$Styles$Font$descFontSize)
-	]);
-var $author$project$Styles$Styles$descAttr = $author$project$Styles$Font$descAttr;
+var $author$project$Styles$Font$descAttr = function (config) {
+	return A2(
+		$elm$core$List$cons,
+		$mdgriffith$elm_ui$Element$Font$size($author$project$Styles$Font$descFontSize),
+		config.bold ? _List_fromArray(
+			[$mdgriffith$elm_ui$Element$Font$bold]) : _List_Nil);
+};
+var $author$project$Styles$Styles$descAttr = $author$project$Styles$Font$descAttr(
+	{bold: false});
 var $mdgriffith$elm_ui$Internal$Model$Describe = function (a) {
 	return {$: 'Describe', a: a};
 };
@@ -16408,51 +16422,282 @@ var $author$project$View$descView = function (desc) {
 				$mdgriffith$elm_ui$Element$text(desc)
 			]));
 };
-var $author$project$Pages$getDescOfCurrentPage = function (currentPage) {
-	if (currentPage.$ === 'Home') {
-		return $elm$core$Maybe$Just('Hi, we make beginner friendly snippets. Welcome to our website. Please let us know what you want. Thanks.');
-	} else {
-		return $elm$core$Maybe$Just('This page is trash, view the correct page');
-	}
-};
-var $author$project$Examples$HomePageExamples$example1 = function () {
-	var exampleCode = A2(
-		$mdgriffith$elm_ui$Element$paragraph,
-		_List_Nil,
-		_List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$text('Example 1')
-			]));
-	return {code: exampleCode, desc: $elm$core$Maybe$Nothing, textCode: '', title: 'This is the title'};
-}();
-var $author$project$Examples$homePageExamples = _List_fromArray(
-	[$author$project$Examples$HomePageExamples$example1]);
-var $author$project$Pages$getExamplesListOfCurrentPage = function (currentPage) {
-	if (currentPage.$ === 'Home') {
-		return $elm$core$Maybe$Just($author$project$Examples$homePageExamples);
-	} else {
-		return $elm$core$Maybe$Nothing;
-	}
-};
-var $author$project$Pages$getTitleOfCurrentPage = function (currentPage) {
-	if (currentPage.$ === 'Home') {
-		return 'Home';
-	} else {
-		return 'Page Invalid';
-	}
-};
-var $author$project$Pages$getCurrentPageData = function (currentPage) {
-	return {
-		desc: $author$project$Pages$getDescOfCurrentPage(currentPage),
-		examples: $author$project$Pages$getExamplesListOfCurrentPage(currentPage),
-		title: $author$project$Pages$getTitleOfCurrentPage(currentPage)
-	};
-};
+var $author$project$Styles$Styles$boldDescAttr = $author$project$Styles$Font$descAttr(
+	{bold: true});
 var $mdgriffith$elm_ui$Internal$Model$PaddingStyle = F5(
 	function (a, b, c, d, e) {
 		return {$: 'PaddingStyle', a: a, b: b, c: c, d: d, e: e};
 	});
 var $mdgriffith$elm_ui$Internal$Flag$padding = $mdgriffith$elm_ui$Internal$Flag$flag(2);
+var $mdgriffith$elm_ui$Element$padding = function (x) {
+	var f = x;
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$padding,
+		A5(
+			$mdgriffith$elm_ui$Internal$Model$PaddingStyle,
+			'p-' + $elm$core$String$fromInt(x),
+			f,
+			f,
+			f,
+			f));
+};
+var $mdgriffith$elm_ui$Internal$Flag$borderRound = $mdgriffith$elm_ui$Internal$Flag$flag(17);
+var $mdgriffith$elm_ui$Element$Border$rounded = function (radius) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$borderRound,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$Single,
+			'br-' + $elm$core$String$fromInt(radius),
+			'border-radius',
+			$elm$core$String$fromInt(radius) + 'px'));
+};
+var $author$project$Styles$Font$codeOutputAttr = _List_fromArray(
+	[
+		$mdgriffith$elm_ui$Element$Background$color($author$project$Styles$Colors$colors.white),
+		$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+		$mdgriffith$elm_ui$Element$padding(20),
+		$mdgriffith$elm_ui$Element$Border$rounded(10)
+	]);
+var $author$project$Styles$Styles$codeOutputAttr = $author$project$Styles$Font$codeOutputAttr;
+var $author$project$Styles$Font$codeblockFont = $elm$core$Maybe$Just(
+	{name: 'Fira Code ', url: 'https://fonts.googleapis.com/css2?family=Fira+Code&display=swap'});
+var $author$project$Styles$Font$codeblockFontSize = $author$project$Styles$Font$descFontSize;
+var $mdgriffith$elm_ui$Element$Font$color = function (fontColor) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$fontColor,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$Colored,
+			'fc-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(fontColor),
+			'color',
+			fontColor));
+};
+var $mdgriffith$elm_ui$Internal$Model$ImportFont = F2(
+	function (a, b) {
+		return {$: 'ImportFont', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Element$Font$external = function (_v0) {
+	var url = _v0.url;
+	var name = _v0.name;
+	return A2($mdgriffith$elm_ui$Internal$Model$ImportFont, name, url);
+};
+var $mdgriffith$elm_ui$Element$Font$family = function (families) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$fontFamily,
+		A2(
+			$mdgriffith$elm_ui$Internal$Model$FontFamily,
+			A3($elm$core$List$foldl, $mdgriffith$elm_ui$Internal$Model$renderFontClassName, 'ff-', families),
+			families));
+};
+var $mdgriffith$elm_ui$Element$Font$regular = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontWeight, $mdgriffith$elm_ui$Internal$Style$classes.textNormalWeight);
+var $mdgriffith$elm_ui$Element$Font$underline = $mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.underline);
+var $author$project$Styles$Font$fontAttrTemplate = function (config) {
+	return _Utils_ap(
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$Font$size(config.fontSize),
+				config.underline ? $mdgriffith$elm_ui$Element$Font$underline : $mdgriffith$elm_ui$Element$Font$regular
+			]),
+		function () {
+			var _v0 = config.font;
+			if (_v0.$ === 'Nothing') {
+				return _List_Nil;
+			} else {
+				var fontData = _v0.a;
+				return _List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$Font$family(
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Font$external(fontData)
+							]))
+					]);
+			}
+		}());
+};
+var $mdgriffith$elm_ui$Element$paddingXY = F2(
+	function (x, y) {
+		if (_Utils_eq(x, y)) {
+			var f = x;
+			return A2(
+				$mdgriffith$elm_ui$Internal$Model$StyleClass,
+				$mdgriffith$elm_ui$Internal$Flag$padding,
+				A5(
+					$mdgriffith$elm_ui$Internal$Model$PaddingStyle,
+					'p-' + $elm$core$String$fromInt(x),
+					f,
+					f,
+					f,
+					f));
+		} else {
+			var yFloat = y;
+			var xFloat = x;
+			return A2(
+				$mdgriffith$elm_ui$Internal$Model$StyleClass,
+				$mdgriffith$elm_ui$Internal$Flag$padding,
+				A5(
+					$mdgriffith$elm_ui$Internal$Model$PaddingStyle,
+					'p-' + ($elm$core$String$fromInt(x) + ('-' + $elm$core$String$fromInt(y))),
+					yFloat,
+					xFloat,
+					yFloat,
+					xFloat));
+		}
+	});
+var $author$project$Styles$Font$codeblockAttr = _Utils_ap(
+	$author$project$Styles$Font$fontAttrTemplate(
+		{font: $author$project$Styles$Font$codeblockFont, fontSize: $author$project$Styles$Font$codeblockFontSize, underline: false}),
+	_List_fromArray(
+		[
+			$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+			A2($mdgriffith$elm_ui$Element$paddingXY, 30, 20),
+			$mdgriffith$elm_ui$Element$Border$rounded(10),
+			$mdgriffith$elm_ui$Element$Background$color($author$project$Styles$Colors$colors.codeblockBackground),
+			$mdgriffith$elm_ui$Element$Font$color($author$project$Styles$Colors$colors.codeblockFontColor)
+		]));
+var $author$project$Styles$Styles$codeblockAttr = $author$project$Styles$Font$codeblockAttr;
+var $mdgriffith$elm_ui$Internal$Flag$borderColor = $mdgriffith$elm_ui$Internal$Flag$flag(28);
+var $mdgriffith$elm_ui$Element$Border$color = function (clr) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$borderColor,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$Colored,
+			'bc-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(clr),
+			'border-color',
+			clr));
+};
+var $mdgriffith$elm_ui$Internal$Model$Empty = {$: 'Empty'};
+var $mdgriffith$elm_ui$Element$none = $mdgriffith$elm_ui$Internal$Model$Empty;
+var $mdgriffith$elm_ui$Element$rgba255 = F4(
+	function (red, green, blue, a) {
+		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, red / 255, green / 255, blue / 255, a);
+	});
+var $mdgriffith$elm_ui$Internal$Model$BorderWidth = F5(
+	function (a, b, c, d, e) {
+		return {$: 'BorderWidth', a: a, b: b, c: c, d: d, e: e};
+	});
+var $mdgriffith$elm_ui$Element$Border$width = function (v) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$borderWidth,
+		A5(
+			$mdgriffith$elm_ui$Internal$Model$BorderWidth,
+			'b-' + $elm$core$String$fromInt(v),
+			v,
+			v,
+			v,
+			v));
+};
+var $author$project$View$divider = A2(
+	$mdgriffith$elm_ui$Element$el,
+	_List_fromArray(
+		[
+			A2($mdgriffith$elm_ui$Element$paddingXY, 0, 50),
+			$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+		]),
+	A2(
+		$mdgriffith$elm_ui$Element$el,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$Border$width(1),
+				$mdgriffith$elm_ui$Element$Border$color(
+				A4($mdgriffith$elm_ui$Element$rgba255, 0, 0, 0, 0.2)),
+				$mdgriffith$elm_ui$Element$Border$rounded(20),
+				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+			]),
+		$mdgriffith$elm_ui$Element$none));
+var $author$project$Styles$Font$subsubtitleFontSize = 20;
+var $author$project$Styles$Font$titleFont = $elm$core$Maybe$Just(
+	{name: 'Montserrat', url: 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,700&display=swap'});
+var $author$project$Styles$Font$subsubtitleAttr = $author$project$Styles$Font$fontAttrTemplate(
+	{font: $author$project$Styles$Font$titleFont, fontSize: $author$project$Styles$Font$subsubtitleFontSize, underline: false});
+var $author$project$Styles$Styles$subsubtitleAttr = $author$project$Styles$Font$subsubtitleAttr;
+var $author$project$View$exampleView = F2(
+	function (index, example) {
+		var exampleTitleView = A2(
+			$mdgriffith$elm_ui$Element$paragraph,
+			$author$project$Styles$Styles$subsubtitleAttr,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$text(
+					'#' + ($elm$core$String$fromInt(index + 1) + (' : ' + example.title)))
+				]));
+		var exampleDescView = A2(
+			$mdgriffith$elm_ui$Element$paragraph,
+			$author$project$Styles$Styles$descAttr,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$text(
+					A2($elm$core$Maybe$withDefault, '', example.desc))
+				]));
+		var exampleCodeblockView = A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$spacing(5),
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$paragraph,
+					$author$project$Styles$Styles$boldDescAttr,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$text('Code Block:')
+						])),
+					A2(
+					$mdgriffith$elm_ui$Element$paragraph,
+					$author$project$Styles$Styles$codeblockAttr,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$text(example.textCode)
+						]))
+				]));
+		var exampleCodeOutputView = A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$spacing(5),
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$paragraph,
+					$author$project$Styles$Styles$boldDescAttr,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$text('Output:')
+						])),
+					A2(
+					$mdgriffith$elm_ui$Element$paragraph,
+					$author$project$Styles$Styles$codeOutputAttr,
+					_List_fromArray(
+						[example.code]))
+				]));
+		var exampleView_ = A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$spacing(30),
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+				]),
+			_List_fromArray(
+				[exampleTitleView, exampleDescView, exampleCodeblockView, exampleCodeOutputView]));
+		return A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+				]),
+			_List_fromArray(
+				[exampleView_, $author$project$View$divider]));
+	});
 var $mdgriffith$elm_ui$Internal$Model$paddingName = F4(
 	function (top, right, bottom, left) {
 		return 'pad-' + ($elm$core$String$fromInt(top) + ('-' + ($elm$core$String$fromInt(right) + ('-' + ($elm$core$String$fromInt(bottom) + ('-' + $elm$core$String$fromInt(left)))))));
@@ -16487,46 +16732,106 @@ var $mdgriffith$elm_ui$Element$paddingEach = function (_v0) {
 				left));
 	}
 };
-var $mdgriffith$elm_ui$Element$Font$color = function (fontColor) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$fontColor,
-		A3(
-			$mdgriffith$elm_ui$Internal$Model$Colored,
-			'fc-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(fontColor),
-			'color',
-			fontColor));
+var $author$project$Styles$Font$noSpecialFont = $elm$core$Maybe$Nothing;
+var $author$project$Styles$Font$subtitleFontSize = 27;
+var $author$project$Styles$Font$subtitleAttr = $author$project$Styles$Font$fontAttrTemplate(
+	{font: $author$project$Styles$Font$noSpecialFont, fontSize: $author$project$Styles$Font$subtitleFontSize, underline: true});
+var $author$project$Styles$Styles$subtitleAttr = $author$project$Styles$Font$subtitleAttr;
+var $author$project$View$examplesView = function (examples) {
+	if (examples.$ === 'Just') {
+		var examples_ = examples.a;
+		var listOfExamplesView = A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+				]),
+			A2($elm$core$List$indexedMap, $author$project$View$exampleView, examples_));
+		return A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+					$mdgriffith$elm_ui$Element$spacing(50),
+					$mdgriffith$elm_ui$Element$paddingEach(
+					{bottom: 200, left: 0, right: 0, top: 30})
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$el,
+					$author$project$Styles$Styles$subtitleAttr,
+					$mdgriffith$elm_ui$Element$text('Examples')),
+					listOfExamplesView
+				]));
+	} else {
+		return $mdgriffith$elm_ui$Element$none;
+	}
 };
-var $mdgriffith$elm_ui$Internal$Model$ImportFont = F2(
-	function (a, b) {
-		return {$: 'ImportFont', a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Element$Font$external = function (_v0) {
-	var url = _v0.url;
-	var name = _v0.name;
-	return A2($mdgriffith$elm_ui$Internal$Model$ImportFont, name, url);
+var $author$project$Pages$getDescOfCurrentPage = function (currentPage) {
+	if (currentPage.$ === 'Home') {
+		return $elm$core$Maybe$Just('Hi, we make beginner friendly snippets. Welcome to our website. Please let us know what you want. Thanks.');
+	} else {
+		return $elm$core$Maybe$Just('This page is trash, view the correct page');
+	}
 };
-var $mdgriffith$elm_ui$Element$Font$family = function (families) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$fontFamily,
-		A2(
-			$mdgriffith$elm_ui$Internal$Model$FontFamily,
-			A3($elm$core$List$foldl, $mdgriffith$elm_ui$Internal$Model$renderFontClassName, 'ff-', families),
-			families));
-};
-var $author$project$Styles$Font$titleFontSize = 40;
-var $author$project$Styles$Font$titleAttr = _List_fromArray(
-	[
-		$mdgriffith$elm_ui$Element$Font$size($author$project$Styles$Font$titleFontSize),
-		$mdgriffith$elm_ui$Element$Font$family(
+var $author$project$Examples$HomePageExamples$example1 = function () {
+	var exampleCode = A2(
+		$mdgriffith$elm_ui$Element$paragraph,
+		_List_Nil,
 		_List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$Font$external(
-				{name: 'Montserrat', url: 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,700&display=swap'})
-			])),
-		$mdgriffith$elm_ui$Element$Font$color($author$project$Styles$Colors$colors.title)
-	]);
+				$mdgriffith$elm_ui$Element$text('Example 1')
+			]));
+	return {
+		code: exampleCode,
+		desc: $elm$core$Maybe$Just('A normal label'),
+		textCode: '\n    paragraph []\n        [ text <| "Example 1" ]\n    ',
+		title: 'This is the title'
+	};
+}();
+var $author$project$Examples$HomePageExamples$example2 = function () {
+	var exampleCode = A2(
+		$mdgriffith$elm_ui$Element$paragraph,
+		_List_Nil,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$text('Example 1')
+			]));
+	return {
+		code: exampleCode,
+		desc: $elm$core$Maybe$Just('A normal label'),
+		textCode: '\n    paragraph []\n        [ text <| "Example 1" ]\n    ',
+		title: 'This is the title'
+	};
+}();
+var $author$project$Examples$HomePageExamples$examples = _List_fromArray(
+	[$author$project$Examples$HomePageExamples$example1, $author$project$Examples$HomePageExamples$example2]);
+var $author$project$Examples$homePageExamples = $author$project$Examples$HomePageExamples$examples;
+var $author$project$Pages$getExamplesListOfCurrentPage = function (currentPage) {
+	if (currentPage.$ === 'Home') {
+		return $elm$core$Maybe$Just($author$project$Examples$homePageExamples);
+	} else {
+		return $elm$core$Maybe$Nothing;
+	}
+};
+var $author$project$Pages$getTitleOfCurrentPage = function (currentPage) {
+	if (currentPage.$ === 'Home') {
+		return 'Home';
+	} else {
+		return 'Page Invalid';
+	}
+};
+var $author$project$Pages$getCurrentPageData = function (currentPage) {
+	return {
+		desc: $author$project$Pages$getDescOfCurrentPage(currentPage),
+		examples: $author$project$Pages$getExamplesListOfCurrentPage(currentPage),
+		title: $author$project$Pages$getTitleOfCurrentPage(currentPage)
+	};
+};
+var $author$project$Styles$Font$titleFontSize = 40;
+var $author$project$Styles$Font$titleAttr = $author$project$Styles$Font$fontAttrTemplate(
+	{font: $author$project$Styles$Font$titleFont, fontSize: $author$project$Styles$Font$titleFontSize, underline: true});
 var $author$project$Styles$Styles$titleAttr = $author$project$Styles$Font$titleAttr;
 var $author$project$View$titleView = function (title) {
 	return A2(
@@ -16546,13 +16851,14 @@ var $author$project$View$pageViewHelper = function (currentPage) {
 				$mdgriffith$elm_ui$Element$paddingEach(
 				{bottom: 20, left: 30, right: 30, top: 100}),
 				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$spacing(50)
+				$mdgriffith$elm_ui$Element$spacing(60)
 			]),
 		_List_fromArray(
 			[
 				$author$project$View$titleView(pageData.title),
 				$author$project$View$descView(
-				A2($elm$core$Maybe$withDefault, '', pageData.desc))
+				A2($elm$core$Maybe$withDefault, '', pageData.desc)),
+				$author$project$View$examplesView(pageData.examples)
 			]));
 };
 var $author$project$View$viewHelper = function (model) {

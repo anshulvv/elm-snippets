@@ -15,4 +15,4 @@ type alias Example =
 
 homePageExamples : List Example
 homePageExamples =
-    [ Examples.HomePageExamples.example1 ]
+    Examples.HomePageExamples.examples
