@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cmd/helper_start "--type=local" "--debug"

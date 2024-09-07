@@ -1,0 +1,8 @@
+#!/bin/bash
+
+TYPE=$1
+WITH_DEBUGGER=$2
+
+COMMAND="node_modules/.bin/elm-live src/Main.elm --hot --host=localhost --port=8000 --dir=docs --pushState --path-to-elm=node_modules/.bin/elm --start-page=index.html --open -- --output=docs/js-compiled/elm.js $WITH_DEBUGGER"
+
+exec $COMMAND
