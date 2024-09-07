@@ -47,7 +47,7 @@ getDescOfCurrentPage : CurrentPage -> Maybe String
 getDescOfCurrentPage currentPage =
     case currentPage of
         Home ->
-            Just "SOmething"
+            Just "Hi, we make beginner friendly snippets. Welcome to our website. Please let us know what you want. Thanks."
 
         InvalidPage ->
             Just "This page is trash, view the correct page"
