@@ -28,18 +28,11 @@ viewHelper model =
         [ Element.width (Element.fill |> Element.maximum 800 |> Element.minimum 600)
         , Element.centerX
         ]
-        (pageViewHelper
-            model.currentPage
-        )
+        (pageViewHelper model.pageData)
 
 
-pageViewHelper : Pages.CurrentPage -> Element Msg
-pageViewHelper currentPage =
-    let
-        pageData : Pages.PageData
-        pageData =
-            Pages.getCurrentPageData currentPage
-    in
+pageViewHelper : Pages.PageData -> Element Msg
+pageViewHelper pageData =
     Element.column
         [ Element.paddingEach
             { top = 100
