@@ -11,3 +11,5 @@
     - Take the `Pages` file from `src/Pages.elm` to `src-portal/Pages.elm` and it will be used there for redirection purposes
     - Convert child app (current app) to `Browser.sandbox` or `Browser.element` because it should not support navigation. It is just for showing the pages
 
+### NON UI RELATED
+1. Figure out why does `docs/js-compiled/elm.js` in `.gitignore` not working
