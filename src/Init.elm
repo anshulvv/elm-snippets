@@ -4,7 +4,6 @@ import Browser.Navigation exposing (Key)
 import Flags
 import Model exposing (Model)
 import Msg
-import Update
 import Url exposing (Url)
 
 
