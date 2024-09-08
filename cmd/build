@@ -1,8 +1,29 @@
 #!/bin/bash
 
+STOP="\e[0m"
+FOLDER_BUILD="build"
+FOLDER_ORIGIN="docs"
 MAIN_ELM="src/Main.elm"
-COMPILED_JS_PATH="docs/js-compiled/elm.js"
+COMPILED_JS_PATH="$FOLDER_BUILD/elm.js"
 
-BUILD_CMD="node_modules/.bin/elm make $MAIN_ELM --output=$COMPILED_JS_PATH"
+function compile {
+    printf "Compiling..."
+        node_modules/.bin/elm make $MAIN_ELM --output=$COMPILED_JS_PATH --optimize 
+    printf "done$STOP\n" 
+}
 
-exec $BUILD_CMD
+
+printf "Removing build folder\n"
+    rm -rf $FOLDER_BUILD
+printf "done$STOP\n"
+
+printf "Creating folders..."
+    mkdir $FOLDER_BUILD
+printf "done$STOP\n" 
+
+printf "Copying files..."
+    cp  $FOLDER_ORIGIN/index.html    $FOLDER_BUILD
+printf "done$STOP\n" 
+
+
+compile

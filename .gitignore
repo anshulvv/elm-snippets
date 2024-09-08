@@ -4,3 +4,6 @@ node_modules
 
 # compiled / generated code
 docs/js-compiled/elm.js
+
+# build files
+build

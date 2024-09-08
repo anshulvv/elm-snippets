@@ -5,7 +5,6 @@ name: Build
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
   pull_request:
     branches: ["main", "**feature**"]
 
@@ -23,6 +22,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+
+      # Setup npm
+      - name: Setup Node
+        run: |
+          npm ci
+          npm install elm
 
       # Runs a single command using the runners shell
       - name: Build Elm to js
