@@ -11,6 +11,7 @@ type alias Model =
     , url : Url
     , key : Key
     , currentPage : Pages.CurrentPage
+    , pageData : Pages.PageData
     }
 
 
@@ -20,9 +21,13 @@ initModel flags url key =
         currentPage : Pages.CurrentPage
         currentPage =
             Pages.getCurrentPageFromString flags.currentPage
+
+        pageData =
+            Pages.getCurrentPageData currentPage
     in
     { flags = Flags.initFlags flags
     , url = url
     , key = key
     , currentPage = currentPage
+    , pageData = pageData
     }

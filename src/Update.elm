@@ -2,6 +2,7 @@ module Update exposing (..)
 
 import Model exposing (Model)
 import Msg exposing (Msg)
+import Pages
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
